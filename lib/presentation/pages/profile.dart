@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class Home extends StatelessWidget {
-  const Home({super.key});
+class Profile extends StatelessWidget {
+  const Profile({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -10,7 +10,7 @@ class Home extends StatelessWidget {
       body: 
       Center(
         child: Text(
-          "Ini blom lese cokkk",
+          "profile",
           style: TextStyle(
             fontSize: 20,
             fontWeight: FontWeight.bold,
