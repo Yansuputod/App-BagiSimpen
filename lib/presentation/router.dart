@@ -1,3 +1,4 @@
+import 'package:bagisimpen/presentation/pages/cart.dart';
 import 'package:bagisimpen/presentation/pages/category.dart';
 import 'package:bagisimpen/presentation/pages/home.dart';
 import 'package:bagisimpen/presentation/pages/profile.dart';
@@ -15,6 +16,7 @@ class RouteState extends State<Routes> {
   final screens = [
     const Home(),
     const Category(),
+    const Cart(),
     const Profile(),
   ];
 
@@ -35,7 +37,7 @@ class RouteState extends State<Routes> {
           ),
         ),
         child: Container(
-          height: 70,
+          height: 65,
           decoration: BoxDecoration(
             boxShadow: [
               BoxShadow(
@@ -52,7 +54,8 @@ class RouteState extends State<Routes> {
             }),
             destinations: const [
               NavigationDestination(icon: Icon(Icons.home), label: "Home"),
-              NavigationDestination(icon: Icon(Icons.bar_chart), label: "Category"),
+              NavigationDestination(icon: Icon(Icons.list), label: "Category"),
+              NavigationDestination(icon: Icon(Icons.shopping_cart), label: "Cart"),
               NavigationDestination(icon: Icon(Icons.person), label: "Profile"),
             ],
           ),
