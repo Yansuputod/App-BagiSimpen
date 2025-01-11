@@ -53,8 +53,7 @@ class Home extends StatelessWidget {
                     ),
                     Text(
                       'Search...',
-                      style: TextStyle(
-                          color: Colors.grey, fontSize: 18),
+                      style: TextStyle(color: Colors.grey, fontSize: 18),
                     ),
                     Spacer(),
                     Padding(
@@ -116,7 +115,8 @@ class Home extends StatelessWidget {
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => const QRScanner()),
+                        MaterialPageRoute(
+                            builder: (context) => const QRScanner()),
                       );
                     },
                   ),
@@ -173,36 +173,50 @@ class Home extends StatelessWidget {
                   Padding(
                     padding:
                         const EdgeInsets.only(bottom: 8, top: 8, right: 10),
-                    child: Column(
-                      children: [
-                        Row(
-                          children: [
-                            SvgPicture.asset(
-                              "assets/svg/tarik.svg",
-                              color: const Color.fromRGBO(0, 99, 13, 1.0),
-                              height: 20,
-                              width: 15,
-                            ),
-                            const Padding(
-                              padding: EdgeInsets.only(left: 5),
-                              child: Text(
-                                "Tarik Tunai",
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 18,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        padding: EdgeInsets.zero,
+                        backgroundColor: Colors.transparent,
+                        shadowColor: Colors.transparent,
+                      ),
+                      onPressed: () {},
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(bottom: 0),
+                            child: Row(
+                              children: [
+                                SvgPicture.asset(
+                                  "assets/svg/tarik.svg",
+                                  color: const Color.fromRGBO(0, 99, 13, 1.0),
+                                  height: 20,
+                                  width: 15,
                                 ),
+                                const Padding(
+                                  padding: EdgeInsets.only(left: 5),
+                                  child: Text(
+                                    "Tarik Tunai",
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 18,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          const Padding(
+                            padding: EdgeInsets.only(top: 0),
+                            child: Text(
+                              "Gratis",
+                              style: TextStyle(
+                                color: Colors.grey,
+                                fontSize: 12,
                               ),
                             ),
-                          ],
-                        ),
-                        const Text(
-                          "Gratis",
-                          style: TextStyle(
-                            color: Colors.grey,
-                            fontSize: 12,
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 ],
