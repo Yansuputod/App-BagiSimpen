@@ -6,12 +6,11 @@ class CountdownTimer extends StatefulWidget {
   final int seconds;
   final TextStyle textStyle;
 
-  // ignore: use_super_parameters
   const CountdownTimer({
-    Key? key,
+    super.key,
     required this.seconds,
     required this.textStyle,
-  }) : super(key: key);
+  });
 
   @override
   // ignore: library_private_types_in_public_api
@@ -25,7 +24,7 @@ class _CountdownTimerState extends State<CountdownTimer> {
   @override
   void initState() {
     super.initState();
-    remainingSeconds = widget.seconds; // Set initial time
+    remainingSeconds = widget.seconds;
     startTimer();
   }
 
@@ -55,15 +54,13 @@ class _CountdownTimerState extends State<CountdownTimer> {
 
   @override
   void dispose() {
-    timer.cancel(); // Cancel timer when the widget is disposed
+    timer.cancel();
     super.dispose();
   }
 }
 
 int generateRandomTime() {
   Random random = Random();
-  // Generate a random number between 3 hours (10800 seconds) and 5 hours (18000 seconds)
-  int randomTimeInSeconds = random.nextInt(7200) + 10800; // Between 10800 to 18000 seconds
+  int randomTimeInSeconds = random.nextInt(7200) + 10800;
   return randomTimeInSeconds;
 }
-

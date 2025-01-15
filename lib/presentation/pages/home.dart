@@ -1,4 +1,5 @@
 // ignore_for_file: deprecated_member_use
+import 'dart:developer';
 
 import 'package:bagisimpen/model/flashsale_model.dart';
 import 'package:bagisimpen/presentation/pages/search.dart';
@@ -6,6 +7,7 @@ import 'package:bagisimpen/presentation/util/qr_scanner.dart';
 import 'package:bagisimpen/presentation/util/timer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:bagisimpen/model/mainsale_model.dart';
 
 class Home extends StatelessWidget {
   const Home({super.key});
@@ -19,13 +21,73 @@ class Home extends StatelessWidget {
         child: Column(
           children: [
             eMoney(context),
-            const SizedBox(height: 10),
+            const SizedBox(height: 8),
             flashSale(flashSales),
+            const SizedBox(height: 8),
+            banner(),
+            const SizedBox(height: 8),
+            mainSale(mainSales),
+            const SizedBox(height: 15),
           ],
         ),
       ),
     );
   }
+
+  SizedBox banner() {
+  return SizedBox(
+    height: 120,
+    child: Container(
+      margin: const EdgeInsets.symmetric(horizontal: 8),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(10),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.1),
+            spreadRadius: 1,
+            blurRadius: 5,
+            offset: const Offset(0, 2),
+          ),
+        ],
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(8.0), // Padding antar elemen di dalam container
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Expanded(
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(8),
+                  color: const Color.fromRGBO(240, 240, 240, 1),
+                  image: const DecorationImage(
+                    image: AssetImage('assets/images/iklan/iklan1.jpg'), 
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(width: 8), // Jarak antara dua iklan
+            Expanded(
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(8),
+                  color: const Color.fromRGBO(240, 240, 240, 1),
+                  image: const DecorationImage(
+                    image: AssetImage('assets/images/iklan/iklan2.png'),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    ),
+  );
+}
+
 
   AppBar searchBar(BuildContext context) {
     return AppBar(
@@ -87,7 +149,7 @@ class Home extends StatelessWidget {
 
   SizedBox eMoney(BuildContext context) {
     return SizedBox(
-      height: 65,
+      height: 60,
       child: Stack(
         children: [
           Container(
@@ -98,7 +160,7 @@ class Home extends StatelessWidget {
             alignment: Alignment.center,
             child: Container(
               height: 60,
-              margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+              margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 3),
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(10),
@@ -234,9 +296,9 @@ class Home extends StatelessWidget {
 
   SizedBox flashSale(List<FlashSaleModel> flashSales) {
     return SizedBox(
-      height: 220,
+      height: 160,
       child: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 15),
+        margin: const EdgeInsets.symmetric(horizontal: 10),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           color: Colors.white,
@@ -255,7 +317,7 @@ class Home extends StatelessWidget {
             GestureDetector(
               onTap: () {},
               child: Container(
-                padding: const EdgeInsets.only(left: 10, top: 10),
+                padding: const EdgeInsets.only(left: 10, top: 5),
                 child: const Row(
                   children: [
                     Icon(Icons.flash_on, color: Colors.green, size: 20),
@@ -290,8 +352,8 @@ class Home extends StatelessWidget {
                 itemBuilder: (context, index) {
                   final sale = flashSales[index];
                   return Container(
-                    width: 120,
-                    margin: const EdgeInsets.all(5),
+                    width: 100,
+                    margin: const EdgeInsets.all(3),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
                       border: Border.all(color: Colors.red.shade100, width: 1),
@@ -302,15 +364,15 @@ class Home extends StatelessWidget {
                       children: [
                         Image.asset(
                           sale.imageUrl,
-                          height: 120,
-                          width: 100,
+                          height: 70,
+                          width: 60,
                           fit: BoxFit.cover,
                         ),
                         const SizedBox(height: 5),
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 2),
                           child: Text(
-                            "Rp ${separator(sale.harga)}",
+                            "Rp${separator(sale.harga)}",
                             textAlign: TextAlign.center,
                             style: const TextStyle(
                               fontSize: 14,
@@ -347,8 +409,100 @@ class Home extends StatelessWidget {
       return '0';
     }
     return number.toString().replaceAllMapped(
-      RegExp(r'\B(?=(\d{3})+(?!\d))'),
-      (match) => '.',
+          RegExp(r'\B(?=(\d{3})+(?!\d))'),
+          (match) => '.',
+        );
+  }
+
+  Padding mainSale(List<MainSaleItem> mainSales) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 8),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          GridView.builder(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              crossAxisSpacing: 5,
+              mainAxisSpacing: 5,
+              childAspectRatio: 0.8, // Rasio lebih ramping
+            ),
+            itemCount: mainSales.length,
+            itemBuilder: (context, index) {
+              final sale = mainSales[index];
+              return GestureDetector(
+                onTap: () {
+                  // Tindakan saat item di-click
+                  log('Clicked on ${sale.title}');
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: Colors.white,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.1),
+                        spreadRadius: 1,
+                        blurRadius: 5,
+                        offset: const Offset(0, 2),
+                      ),
+                    ],
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      ClipRRect(
+                        borderRadius: const BorderRadius.vertical(
+                          top: Radius.circular(10),
+                        ),
+                        child: Center(
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Image.asset(
+                              sale.imageUrl,
+                              height: 130, // Tinggi gambar lebih pendek
+                              width: 120,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              sale.title,
+                              style: const TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold,
+                              ),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                            const SizedBox(height: 5),
+                            Text(
+                              "Rp${sale.price}",
+                              style: const TextStyle(
+                                fontSize: 16,
+                                color: Colors.red,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              );
+            },
+          ),
+        ],
+      ),
     );
   }
 }

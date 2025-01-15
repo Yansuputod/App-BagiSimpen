@@ -26,4 +26,16 @@ final List<FlashSaleModel> flashSales = [
         imageUrl: 'assets/images/flashSale/beras.jpeg', 
         harga: 70000, 
         stock: 10),
+    FlashSaleModel(
+        imageUrl: 'assets/images/flashSale/beras.jpeg', 
+        harga: 70000, 
+        stock: 10),
+    FlashSaleModel(
+        imageUrl: 'assets/images/flashSale/beras.jpeg', 
+        harga: 70000, 
+        stock: 10),
+    FlashSaleModel(
+        imageUrl: 'assets/images/flashSale/beras.jpeg', 
+        harga: 70000, 
+        stock: 10),
   ];
