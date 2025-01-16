@@ -22,12 +22,20 @@ class RouteState extends State<Routes> {
     const Profile(),
   ];
 
-  DateTime? lastPressed; // Variabel untuk melacak waktu tombol back terakhir ditekan
+  DateTime?
+      lastPressed; // Variabel untuk melacak waktu tombol back terakhir ditekan
 
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
+        if (index != 0) {
+          setState(() {
+            index = 0; // Ubah index menjadi 0
+          });
+          return false; // Tahan navigasi keluar
+        }
+
         final now = DateTime.now();
         const duration = Duration(seconds: 2);
 
@@ -83,9 +91,12 @@ class RouteState extends State<Routes> {
               }),
               destinations: const [
                 NavigationDestination(icon: Icon(Icons.home), label: "Home"),
-                NavigationDestination(icon: Icon(Icons.list), label: "Category"),
-                NavigationDestination(icon: Icon(Icons.shopping_cart), label: "Cart"),
-                NavigationDestination(icon: Icon(Icons.person), label: "Profile"),
+                NavigationDestination(
+                    icon: Icon(Icons.list), label: "Category"),
+                NavigationDestination(
+                    icon: Icon(Icons.shopping_cart), label: "Cart"),
+                NavigationDestination(
+                    icon: Icon(Icons.person), label: "Profile"),
               ],
             ),
           ),

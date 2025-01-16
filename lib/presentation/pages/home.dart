@@ -1,6 +1,5 @@
 // ignore_for_file: deprecated_member_use
-import 'dart:developer';
-
+import 'dart:developer' as developer;
 import 'package:bagisimpen/model/flashsale_model.dart';
 import 'package:bagisimpen/presentation/pages/search.dart';
 import 'package:bagisimpen/presentation/util/qr_scanner.dart';
@@ -35,59 +34,59 @@ class Home extends StatelessWidget {
   }
 
   SizedBox banner() {
-  return SizedBox(
-    height: 120,
-    child: Container(
-      margin: const EdgeInsets.symmetric(horizontal: 8),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(10),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.1),
-            spreadRadius: 1,
-            blurRadius: 5,
-            offset: const Offset(0, 2),
-          ),
-        ],
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(8.0), // Padding antar elemen di dalam container
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Expanded(
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8),
-                  color: const Color.fromRGBO(240, 240, 240, 1),
-                  image: const DecorationImage(
-                    image: AssetImage('assets/images/iklan/iklan1.jpg'), 
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              ),
-            ),
-            const SizedBox(width: 8), // Jarak antara dua iklan
-            Expanded(
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8),
-                  color: const Color.fromRGBO(240, 240, 240, 1),
-                  image: const DecorationImage(
-                    image: AssetImage('assets/images/iklan/iklan2.png'),
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              ),
+    return SizedBox(
+      height: 120,
+      child: Container(
+        margin: const EdgeInsets.symmetric(horizontal: 8),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(10),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.1),
+              spreadRadius: 1,
+              blurRadius: 5,
+              offset: const Offset(0, 2),
             ),
           ],
         ),
+        child: Padding(
+          padding: const EdgeInsets.all(
+              8.0), // Padding antar elemen di dalam container
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Expanded(
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8),
+                    color: const Color.fromRGBO(240, 240, 240, 1),
+                    image: const DecorationImage(
+                      image: AssetImage('assets/images/iklan/iklan1.jpg'),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(width: 8), // Jarak antara dua iklan
+              Expanded(
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8),
+                    color: const Color.fromRGBO(240, 240, 240, 1),
+                    image: const DecorationImage(
+                      image: AssetImage('assets/images/iklan/iklan2.png'),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
-    ),
-  );
-}
-
+    );
+  }
 
   AppBar searchBar(BuildContext context) {
     return AppBar(
@@ -359,36 +358,69 @@ class Home extends StatelessWidget {
                       border: Border.all(color: Colors.red.shade100, width: 1),
                       color: Colors.white,
                     ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                    child: Stack(
                       children: [
-                        Image.asset(
-                          sale.imageUrl,
-                          height: 70,
-                          width: 60,
-                          fit: BoxFit.cover,
-                        ),
-                        const SizedBox(height: 5),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 2),
-                          child: Text(
-                            "Rp${separator(sale.harga)}",
-                            textAlign: TextAlign.center,
-                            style: const TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.bold,
-                            ),
+                        // Konten utama di tengah
+                        Center(
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Image.asset(
+                                sale.imageUrl,
+                                height: 70,
+                                width: 60,
+                                fit: BoxFit.cover,
+                              ),
+                              const SizedBox(height: 5),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 2),
+                                child: Text(
+                                  "Rp${separator(sale.harga)}",
+                                  textAlign: TextAlign.center,
+                                  style: const TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(height: 2),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 2),
+                                child: Text(
+                                  'Stock: ${sale.stock}',
+                                  style: const TextStyle(
+                                    fontSize: 14,
+                                    color: Colors.red,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
-                        const SizedBox(height: 2),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 2),
-                          child: Text(
-                            'Stock: ${sale.stock}',
-                            style: const TextStyle(
-                              fontSize: 14,
-                              color: Colors.red,
-                              fontWeight: FontWeight.bold,
+                        // Highlight diskon di kiri atas
+                        Positioned(
+                          top: 0,
+                          left: 0,
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 5, vertical: 1),
+                            decoration: BoxDecoration(
+                              color: Colors.red.withOpacity(0.2),
+                              borderRadius: const BorderRadius.only(
+                                topLeft: Radius.circular(10),
+                                bottomRight: Radius.circular(10),
+                              ),
+                            ),
+                            child: Text(
+                              '${sale.diskon}% OFF!',
+                              style: const TextStyle(
+                                fontSize: 10,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.red,
+                              ),
                             ),
                           ),
                         ),
@@ -414,8 +446,8 @@ class Home extends StatelessWidget {
         );
   }
 
-  Padding mainSale(List<MainSaleItem> mainSales) {
-    return Padding(
+  Container mainSale(List<MainSaleItem> mainSales) {
+    return Container(
       padding: const EdgeInsets.symmetric(horizontal: 8),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -427,15 +459,14 @@ class Home extends StatelessWidget {
               crossAxisCount: 2,
               crossAxisSpacing: 5,
               mainAxisSpacing: 5,
-              childAspectRatio: 0.8, // Rasio lebih ramping
+              childAspectRatio: 0.8, // Rasio untuk tinggi lebih besar
             ),
             itemCount: mainSales.length,
             itemBuilder: (context, index) {
               final sale = mainSales[index];
               return GestureDetector(
                 onTap: () {
-                  // Tindakan saat item di-click
-                  log('Clicked on ${sale.title}');
+                  developer.log('Clicked on ${sale.title}');
                 },
                 child: Container(
                   decoration: BoxDecoration(
@@ -457,22 +488,63 @@ class Home extends StatelessWidget {
                         borderRadius: const BorderRadius.vertical(
                           top: Radius.circular(10),
                         ),
-                        child: Center(
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Image.asset(
-                              sale.imageUrl,
-                              height: 130, // Tinggi gambar lebih pendek
-                              width: 120,
-                              fit: BoxFit.cover,
+                        child: Stack(
+                          children: [
+                            // Gambar produk
+                            Center(
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Image.asset(
+                                  sale.imageUrl,
+                                  height: 130, // Tinggi gambar
+                                  width: 120, // Lebar gambar
+                                  fit: BoxFit.contain, // Gambar tidak terpotong
+                                ),
+                              ),
                             ),
-                          ),
+                            // Widget rating di pojok kiri atas
+                            Positioned(
+                              top: 8,
+                              left: 8,
+                              child: Container(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 6,
+                                  vertical: 3,
+                                ),
+                                decoration: BoxDecoration(
+                                  color: const Color.fromRGBO(
+                                      0, 0, 0, 0.3), // Background hitam
+                                  borderRadius: BorderRadius.circular(5),
+                                ),
+                                child: Row(
+                                  children: [
+                                    const Icon(
+                                      Icons.star,
+                                      size: 12,
+                                      color: Colors.yellow, // Warna bintang
+                                    ),
+                                    const SizedBox(width: 2),
+                                    Text(
+                                      "${sale.rating}", // Berikan default 0.0 jika null
+                                      style: const TextStyle(
+                                        fontSize: 12,
+                                        color: Colors.white, // Teks warna putih
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                       ),
+                      const Spacer(), // Ruang kosong antara gambar dan teks
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.min,
                           children: [
                             Text(
                               sale.title,
@@ -484,14 +556,29 @@ class Home extends StatelessWidget {
                               overflow: TextOverflow.ellipsis,
                             ),
                             const SizedBox(height: 5),
-                            Text(
-                              "Rp${sale.price}",
-                              style: const TextStyle(
-                                fontSize: 16,
-                                color: Colors.red,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  "Rp${separator(sale.price)}",
+                                  style: const TextStyle(
+                                    fontSize: 16,
+                                    color: Color.fromRGBO(0, 99, 13, 1.0),
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                  maxLines: 1,
+                                ),
+                                Text(
+                                  "${rbSeparator(sale.sold)} terjual",
+                                  style: const TextStyle(
+                                    fontSize: 12,
+                                    color: Colors.grey,
+                                  ),
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ],
+                            )
                           ],
                         ),
                       ),
@@ -506,3 +593,13 @@ class Home extends StatelessWidget {
     );
   }
 }
+
+String rbSeparator(int number) {
+  if (number >= 1000) {
+    double formattedNumber = number / 1000;
+    return "${formattedNumber.toStringAsFixed(1)}RB+";
+  } else {
+    return number.toString();
+  }
+}
+
