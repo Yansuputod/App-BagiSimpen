@@ -1,15 +1,24 @@
 // ignore_for_file: deprecated_member_use
-import 'dart:developer' as developer;
+import 'package:bagisimpen/core/theme/color.dart';
 import 'package:bagisimpen/model/flashsale_model.dart';
+import 'package:bagisimpen/presentation/pages/product_detail.dart';
 import 'package:bagisimpen/presentation/pages/search.dart';
-import 'package:bagisimpen/presentation/util/qr_scanner.dart';
-import 'package:bagisimpen/presentation/util/timer.dart';
+import 'package:bagisimpen/core/util/qr_scanner.dart';
+import 'package:bagisimpen/core/util/pemisah.dart';
+import 'package:bagisimpen/core/util/timer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:bagisimpen/model/mainsale_model.dart';
 
-class Home extends StatelessWidget {
+class Home extends StatefulWidget {
   const Home({super.key});
+
+  @override
+  State<Home> createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  Pemisah pemisah = Pemisah();
 
   @override
   Widget build(BuildContext context) {
@@ -33,64 +42,62 @@ class Home extends StatelessWidget {
     );
   }
 
-  SizedBox banner() {
-    return SizedBox(
-      height: 120,
-      child: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 8),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(10),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.1),
-              spreadRadius: 1,
-              blurRadius: 5,
-              offset: const Offset(0, 2),
+  Container banner() {
+  return Container(
+    height: 100,
+    margin: const EdgeInsets.symmetric(horizontal: 8),
+    decoration: BoxDecoration(
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(10),
+      boxShadow: [
+        BoxShadow(
+          color: Colors.black.withOpacity(0.1),
+          spreadRadius: 1,
+          blurRadius: 5,
+          offset: const Offset(0, 2),
+        ),
+      ],
+    ),
+    child: Padding(
+      padding: const EdgeInsets.all(4.0), // Adding padding inside the container
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Expanded(
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(8),
+                color: const Color.fromRGBO(240, 240, 240, 1),
+                image: const DecorationImage(
+                  image: AssetImage('assets/images/iklan/iklan1.jpg'),
+                  fit: BoxFit.cover,
+                ),
+              ),
             ),
-          ],
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(
-              8.0), // Padding antar elemen di dalam container
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Expanded(
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8),
-                    color: const Color.fromRGBO(240, 240, 240, 1),
-                    image: const DecorationImage(
-                      image: AssetImage('assets/images/iklan/iklan1.jpg'),
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
-              ),
-              const SizedBox(width: 8), // Jarak antara dua iklan
-              Expanded(
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8),
-                    color: const Color.fromRGBO(240, 240, 240, 1),
-                    image: const DecorationImage(
-                      image: AssetImage('assets/images/iklan/iklan2.png'),
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
-              ),
-            ],
           ),
-        ),
+          const SizedBox(width: 8),
+          Expanded(
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(8),
+                color: const Color.fromRGBO(240, 240, 240, 1),
+                image: const DecorationImage(
+                  image: AssetImage('assets/images/iklan/iklan2.png'),
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
-    );
-  }
+    ),
+  );
+}
+
 
   AppBar searchBar(BuildContext context) {
     return AppBar(
-      backgroundColor: const Color.fromRGBO(0, 99, 13, 1.0),
+      backgroundColor: AppColors.primaryColor,
       title: Row(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
@@ -113,8 +120,7 @@ class Home extends StatelessWidget {
                   children: [
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 12),
-                      child: Icon(Icons.search,
-                          color: Color.fromRGBO(0, 99, 13, 1.0)),
+                      child: Icon(Icons.search, color: AppColors.primaryColor),
                     ),
                     Text(
                       'Search...',
@@ -123,8 +129,7 @@ class Home extends StatelessWidget {
                     Spacer(),
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 12),
-                      child:
-                          Icon(Icons.camera_alt_outlined, color: Colors.grey),
+                      child: Icon(Icons.camera_alt_outlined, color: Colors.grey),
                     ),
                   ],
                 ),
@@ -146,14 +151,14 @@ class Home extends StatelessWidget {
     );
   }
 
-  SizedBox eMoney(BuildContext context) {
-    return SizedBox(
+  Container eMoney(BuildContext context) {
+    return Container(
       height: 60,
       child: Stack(
         children: [
           Container(
             height: 30,
-            color: const Color.fromRGBO(0, 99, 13, 1.0),
+            color: AppColors.primaryColor,
           ),
           Align(
             alignment: Alignment.center,
@@ -185,13 +190,10 @@ class Home extends StatelessWidget {
                       );
                     },
                   ),
-                  const Padding(
-                    padding: EdgeInsets.symmetric(vertical: 15),
-                    child: VerticalDivider(
-                      color: Colors.grey,
-                      thickness: 0.5,
-                      width: 1,
-                    ),
+                  const VerticalDivider(
+                    color: Colors.grey,
+                    thickness: 0.5,
+                    width: 1,
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 8),
@@ -201,7 +203,7 @@ class Home extends StatelessWidget {
                           children: [
                             SvgPicture.asset(
                               "assets/svg/wallet.svg",
-                              color: const Color.fromRGBO(0, 99, 13, 1.0),
+                              color: AppColors.primaryColor,
                               height: 20,
                               width: 15,
                             ),
@@ -227,13 +229,10 @@ class Home extends StatelessWidget {
                       ],
                     ),
                   ),
-                  const Padding(
-                    padding: EdgeInsets.symmetric(vertical: 15),
-                    child: VerticalDivider(
-                      color: Colors.grey,
-                      thickness: 0.5,
-                      width: 1,
-                    ),
+                  const VerticalDivider(
+                    color: Colors.grey,
+                    thickness: 0.5,
+                    width: 1,
                   ),
                   Padding(
                     padding:
@@ -247,37 +246,31 @@ class Home extends StatelessWidget {
                       onPressed: () {},
                       child: Column(
                         children: [
-                          Padding(
-                            padding: const EdgeInsets.only(bottom: 0),
-                            child: Row(
-                              children: [
-                                SvgPicture.asset(
-                                  "assets/svg/tarik.svg",
-                                  color: const Color.fromRGBO(0, 99, 13, 1.0),
-                                  height: 20,
-                                  width: 15,
-                                ),
-                                const Padding(
-                                  padding: EdgeInsets.only(left: 5),
-                                  child: Text(
-                                    "Tarik Tunai",
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 18,
-                                    ),
+                          Row(
+                            children: [
+                              SvgPicture.asset(
+                                "assets/svg/tarik.svg",
+                                color: AppColors.primaryColor,
+                                height: 20,
+                                width: 15,
+                              ),
+                              const Padding(
+                                padding: EdgeInsets.only(left: 5),
+                                child: Text(
+                                  "Tarik Tunai",
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 18,
                                   ),
                                 ),
-                              ],
-                            ),
-                          ),
-                          const Padding(
-                            padding: EdgeInsets.only(top: 0),
-                            child: Text(
-                              "Gratis",
-                              style: TextStyle(
-                                color: Colors.grey,
-                                fontSize: 12,
                               ),
+                            ],
+                          ),
+                          const Text(
+                            "Gratis",
+                            style: TextStyle(
+                              color: Colors.grey,
+                              fontSize: 12,
                             ),
                           ),
                         ],
@@ -293,157 +286,141 @@ class Home extends StatelessWidget {
     );
   }
 
-  SizedBox flashSale(List<FlashSaleModel> flashSales) {
-    return SizedBox(
+  Container flashSale(List<FlashSaleModel> flashSales) {
+    return Container(
       height: 160,
-      child: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 10),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
-          color: Colors.white,
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.1),
-              spreadRadius: 1,
-              blurRadius: 5,
-              offset: const Offset(0, 2),
-            ),
-          ],
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            GestureDetector(
-              onTap: () {},
-              child: Container(
-                padding: const EdgeInsets.only(left: 10, top: 5),
-                child: const Row(
-                  children: [
-                    Icon(Icons.flash_on, color: Colors.green, size: 20),
-                    SizedBox(width: 2),
-                    Text(
-                      "Flash Sale",
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.red,
-                      ),
+      margin: const EdgeInsets.symmetric(horizontal: 10),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
+        color: Colors.white,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.1),
+            spreadRadius: 1,
+            blurRadius: 5,
+            offset: const Offset(0, 2),
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          GestureDetector(
+            onTap: () {},
+            child: Container(
+              padding: const EdgeInsets.only(left: 10, top: 5),
+              child: const Row(
+                children: [
+                  Icon(Icons.flash_on, color: Colors.green, size: 20),
+                  SizedBox(width: 2),
+                  Text(
+                    "Flash Sale",
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.red,
                     ),
-                    SizedBox(width: 2),
-                    Icon(Icons.arrow_forward, color: Colors.red, size: 16),
-                    SizedBox(width: 135),
-                    CountdownTimer(
-                      seconds: 10230,
-                      textStyle: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.red,
-                      ),
+                  ),
+                  SizedBox(width: 2),
+                  Icon(Icons.arrow_forward, color: Colors.red, size: 16),
+                  Spacer(),
+                  CountdownTimer(
+                    seconds: 10230,
+                    textStyle: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.red,
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
-            Expanded(
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: flashSales.length,
-                itemBuilder: (context, index) {
-                  final sale = flashSales[index];
-                  return Container(
-                    width: 100,
-                    margin: const EdgeInsets.all(3),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      border: Border.all(color: Colors.red.shade100, width: 1),
-                      color: Colors.white,
-                    ),
-                    child: Stack(
-                      children: [
-                        // Konten utama di tengah
-                        Center(
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Image.asset(
-                                sale.imageUrl,
-                                height: 70,
-                                width: 60,
-                                fit: BoxFit.cover,
-                              ),
-                              const SizedBox(height: 5),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 2),
-                                child: Text(
-                                  "Rp${separator(sale.harga)}",
-                                  textAlign: TextAlign.center,
-                                  style: const TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.bold,
-                                  ),
+          ),
+          Expanded(
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: flashSales.length,
+              itemBuilder: (context, index) {
+                final sale = flashSales[index];
+                return Container(
+                  width: 100,
+                  margin: const EdgeInsets.all(3),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border.all(color: Colors.red.shade100, width: 1),
+                    color: Colors.white,
+                  ),
+                  child: Stack(
+                    children: [
+                      Center(
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Image.asset(
+                              sale.imageUrl,
+                              height: 70,
+                              width: 60,
+                              fit: BoxFit.cover,
+                            ),
+                            const SizedBox(height: 5),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 2),
+                              child: Text(
+                                "Rp${pemisah.separator(sale.harga)}",
+                                textAlign: TextAlign.center,
+                                style: const TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.bold,
                                 ),
-                              ),
-                              const SizedBox(height: 2),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 2),
-                                child: Text(
-                                  'Stock: ${sale.stock}',
-                                  style: const TextStyle(
-                                    fontSize: 14,
-                                    color: Colors.red,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        // Highlight diskon di kiri atas
-                        Positioned(
-                          top: 0,
-                          left: 0,
-                          child: Container(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 5, vertical: 1),
-                            decoration: BoxDecoration(
-                              color: Colors.red.withOpacity(0.2),
-                              borderRadius: const BorderRadius.only(
-                                topLeft: Radius.circular(10),
-                                bottomRight: Radius.circular(10),
                               ),
                             ),
-                            child: Text(
-                              '${sale.diskon}% OFF!',
-                              style: const TextStyle(
-                                fontSize: 10,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.red,
+                            const SizedBox(height: 2),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 2),
+                              child: Text(
+                                'Stock: ${sale.stock}',
+                                style: const TextStyle(
+                                  fontSize: 14,
+                                  color: Colors.red,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Positioned(
+                        top: 0,
+                        left: 0,
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 5, vertical: 1),
+                          decoration: BoxDecoration(
+                            color: Colors.red.withOpacity(0.2),
+                            borderRadius: const BorderRadius.only(
+                              topLeft: Radius.circular(10),
+                              bottomRight: Radius.circular(10),
+                            ),
+                          ),
+                          child: Text(
+                            '${sale.diskon}% OFF!',
+                            style: const TextStyle(
+                              fontSize: 10,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.red,
                             ),
                           ),
                         ),
-                      ],
-                    ),
-                  );
-                },
-              ),
+                      ),
+                    ],
+                  ),
+                );
+              },
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
-  }
-
-  String separator(int? number) {
-    if (number == null) {
-      return '0';
-    }
-    return number.toString().replaceAllMapped(
-          RegExp(r'\B(?=(\d{3})+(?!\d))'),
-          (match) => '.',
-        );
   }
 
   Container mainSale(List<MainSaleItem> mainSales) {
@@ -459,14 +436,25 @@ class Home extends StatelessWidget {
               crossAxisCount: 2,
               crossAxisSpacing: 5,
               mainAxisSpacing: 5,
-              childAspectRatio: 0.8, // Rasio untuk tinggi lebih besar
+              childAspectRatio: 0.8,
             ),
             itemCount: mainSales.length,
             itemBuilder: (context, index) {
               final sale = mainSales[index];
               return GestureDetector(
                 onTap: () {
-                  developer.log('Clicked on ${sale.title}');
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ProductDetail(
+                        title: sale.title,
+                        imageUrl: sale.imageUrl,
+                        price: sale.price,
+                        rating: sale.rating ?? 0.0,
+                        sold: sale.sold,
+                      ),
+                    ),
+                  );
                 },
                 child: Container(
                   decoration: BoxDecoration(
@@ -490,19 +478,17 @@ class Home extends StatelessWidget {
                         ),
                         child: Stack(
                           children: [
-                            // Gambar produk
                             Center(
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Image.asset(
                                   sale.imageUrl,
-                                  height: 130, // Tinggi gambar
-                                  width: 120, // Lebar gambar
-                                  fit: BoxFit.contain, // Gambar tidak terpotong
+                                  height: 130,
+                                  width: 120,
+                                  fit: BoxFit.contain,
                                 ),
                               ),
                             ),
-                            // Widget rating di pojok kiri atas
                             Positioned(
                               top: 8,
                               left: 8,
@@ -512,8 +498,7 @@ class Home extends StatelessWidget {
                                   vertical: 3,
                                 ),
                                 decoration: BoxDecoration(
-                                  color: const Color.fromRGBO(
-                                      0, 0, 0, 0.3), // Background hitam
+                                  color: const Color.fromRGBO(0, 0, 0, 0.3),
                                   borderRadius: BorderRadius.circular(5),
                                 ),
                                 child: Row(
@@ -521,14 +506,14 @@ class Home extends StatelessWidget {
                                     const Icon(
                                       Icons.star,
                                       size: 12,
-                                      color: Colors.yellow, // Warna bintang
+                                      color: Colors.yellow,
                                     ),
                                     const SizedBox(width: 2),
                                     Text(
-                                      "${sale.rating}", // Berikan default 0.0 jika null
+                                      "${sale.rating}",
                                       style: const TextStyle(
                                         fontSize: 12,
-                                        color: Colors.white, // Teks warna putih
+                                        color: Colors.white,
                                         fontWeight: FontWeight.bold,
                                       ),
                                     ),
@@ -539,12 +524,11 @@ class Home extends StatelessWidget {
                           ],
                         ),
                       ),
-                      const Spacer(), // Ruang kosong antara gambar dan teks
+                      const Spacer(),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisSize: MainAxisSize.min,
                           children: [
                             Text(
                               sale.title,
@@ -560,16 +544,16 @@ class Home extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
-                                  "Rp${separator(sale.price)}",
+                                  "Rp${pemisah.separator(sale.price)}",
                                   style: const TextStyle(
                                     fontSize: 16,
-                                    color: Color.fromRGBO(0, 99, 13, 1.0),
+                                    color: AppColors.primaryColor,
                                     fontWeight: FontWeight.bold,
                                   ),
                                   maxLines: 1,
                                 ),
                                 Text(
-                                  "${rbSeparator(sale.sold)} terjual",
+                                  "${pemisah.rbSeparator(sale.sold)} terjual",
                                   style: const TextStyle(
                                     fontSize: 12,
                                     color: Colors.grey,
@@ -578,7 +562,7 @@ class Home extends StatelessWidget {
                                   overflow: TextOverflow.ellipsis,
                                 ),
                               ],
-                            )
+                            ),
                           ],
                         ),
                       ),
@@ -593,13 +577,3 @@ class Home extends StatelessWidget {
     );
   }
 }
-
-String rbSeparator(int number) {
-  if (number >= 1000) {
-    double formattedNumber = number / 1000;
-    return "${formattedNumber.toStringAsFixed(1)}RB+";
-  } else {
-    return number.toString();
-  }
-}
-
