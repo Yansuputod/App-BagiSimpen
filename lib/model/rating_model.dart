@@ -1,9 +1,9 @@
 
 class RatingModel {
   final String userName;
-  final String userImage; // URL gambar profil pengguna
-  final int rating; // Jumlah bintang
-  final String comment; // Komentar pengguna
+  final String userImage; 
+  final int rating; 
+  final String comment; 
 
   RatingModel({
     required this.userName,
@@ -15,21 +15,21 @@ class RatingModel {
 
 final List<RatingModel> ratings = [
   RatingModel(
-    userName: "John Doe",
-    userImage: "assets/icons/userIcon.jpeg", // URL Dummy
+    userName: "Gunantha Wira",
+    userImage: "assets/icons/userIcon.jpeg", 
     rating: 4,
-    comment: "Produk sangat bagus, sesuai dengan deskripsi!",
+    comment: "Ayo Sekolah Di SSRI",
   ),
   RatingModel(
-    userName: "Jane Smith",
-    userImage: "assets/icons/userIcon.jpeg", // URL Dummy
+    userName: "Made Edi",
+    userImage: "assets/icons/userIcon.jpeg", 
     rating: 5,
-    comment: "Kualitasnya sangat baik, pengiriman cepat.",
+    comment: "Sekolah Di SSRI Aja",
   ),
   RatingModel(
-    userName: "Ali Baba",
-    userImage: "assets/icons/userIcon.jpeg", // URL Dummy
+    userName: "Pak Dek Yostaf",
+    userImage: "assets/icons/userIcon.jpeg", 
     rating: 3,
-    comment: "Cukup baik, tapi bisa lebih baik lagi.",
+    comment: "Terafiliasi Dengan Berbagai Perusahan Dan Kampus",
   ),
 ];

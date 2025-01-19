@@ -30,7 +30,7 @@ class SplashScreenState extends State<SplashScreen> {
               splashIconSize: 150,
               centered: true,
               nextScreen: const Routes(),
-              duration: 3500,
+              duration: 3000,
               backgroundColor: Colors.transparent,
               splashTransition: SplashTransition.fadeTransition,
               pageTransitionType: PageTransitionType.rightToLeft,

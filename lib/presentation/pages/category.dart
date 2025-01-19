@@ -10,18 +10,7 @@ class Category extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
-      appBar: AppBar(
-        title: const Center(
-          child: Text(
-            "Category",
-            style: TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.w700,
-            ),
-          ),
-        ),
-        backgroundColor: AppColors.primaryColor,
-      ),
+      appBar: appBar(),
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: SingleChildScrollView(
@@ -29,12 +18,11 @@ class Category extends StatelessWidget {
             children: categories.map((category) {
               return GestureDetector(
                 onTap: () {
-                  // Logika ketika kategori diklik
                   log("Klik kategori: ${category.name}");
                 },
                 child: Container(
                   height: 120,
-                  margin: const EdgeInsets.only(bottom: 12), // Jarak antar item
+                  margin: const EdgeInsets.only(bottom: 12),
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   decoration: BoxDecoration(
                     color: Colors.white,
@@ -43,13 +31,12 @@ class Category extends StatelessWidget {
                       BoxShadow(
                         color: Colors.grey.withOpacity(0.2),
                         blurRadius: 6,
-                        offset: const Offset(0, 3), // Shadow ke bawah
+                        offset: const Offset(0, 3),
                       ),
                     ],
                   ),
                   child: Row(
                     children: [
-                      // Gambar kategori
                       Container(
                         width: 100,
                         height: 100,
@@ -60,7 +47,6 @@ class Category extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(width: 35),
-                      // Nama kategori dan jumlah item
                       Expanded(
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -69,7 +55,7 @@ class Category extends StatelessWidget {
                             Text(
                               category.name,
                               style: const TextStyle(
-                                fontSize: 20, // Ukuran font lebih besar
+                                fontSize: 20,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
@@ -77,7 +63,7 @@ class Category extends StatelessWidget {
                             Text(
                               "${category.itemCount} items",
                               style: const TextStyle(
-                                fontSize: 16, // Ukuran font lebih besar
+                                fontSize: 16,
                                 color: Colors.grey,
                               ),
                             ),
@@ -96,6 +82,21 @@ class Category extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+
+  AppBar appBar() {
+    return AppBar(
+      title: const Center(
+        child: Text(
+          "Category",
+          style: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.w700,
+          ),
+        ),
+      ),
+      backgroundColor: AppColors.primaryColor,
     );
   }
 }

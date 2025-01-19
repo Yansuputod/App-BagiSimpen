@@ -359,13 +359,12 @@ class _HomeState extends State<Home> {
                           children: [
                             Image.asset(
                               sale.imageUrl,
-                              height: 70,
-                              width: 60,
+                              height: 80,
+                              width: 70,
                               fit: BoxFit.cover,
                             ),
-                            const SizedBox(height: 5),
                             Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 2),
+                              padding: const EdgeInsets.symmetric(horizontal: 1),
                               child: Text(
                                 "Rp${pemisah.separator(sale.harga)}",
                                 textAlign: TextAlign.center,
@@ -375,9 +374,8 @@ class _HomeState extends State<Home> {
                                 ),
                               ),
                             ),
-                            const SizedBox(height: 2),
                             Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 2),
+                              padding: const EdgeInsets.symmetric(horizontal: 1),
                               child: Text(
                                 'Stock: ${sale.stock}',
                                 style: const TextStyle(
@@ -578,4 +576,6 @@ class _HomeState extends State<Home> {
       ),
     );
   }
+
+  
 }

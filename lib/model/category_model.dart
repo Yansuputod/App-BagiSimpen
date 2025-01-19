@@ -1,4 +1,4 @@
-// Model kategori
+
 class CategoryModel {
   final String name;
   final String imageUrl;
@@ -14,14 +14,22 @@ class CategoryModel {
 final List<CategoryModel> categories = [
   CategoryModel(
       name: "Sembako",
-      imageUrl: "assets/images/flashSale/beras.jpeg",
+      imageUrl: "assets/images/kategori/sembako.jpeg",
+      itemCount: 1004),
+  CategoryModel(
+      name: "Alat Dapur",
+      imageUrl: "assets/images/kategori/alatdapur.jpeg",
+      itemCount: 234),
+  CategoryModel(
+      name: "Elektronik",
+      imageUrl: "assets/images/kategori/elektronik.jpeg",
       itemCount: 24),
   CategoryModel(
-      name: "Sembako",
-      imageUrl: "assets/images/flashSale/beras.jpeg",
-      itemCount: 24),
+      name: "pertanian",
+      imageUrl: "assets/images/kategori/pertanian.jpeg",
+      itemCount: 214),
   CategoryModel(
-      name: "Sembako",
-      imageUrl: "assets/images/flashSale/beras.jpeg",
+      name: "otomotif",
+      imageUrl: "assets/images/kategori/otomotif.jpeg",
       itemCount: 24),
 ];

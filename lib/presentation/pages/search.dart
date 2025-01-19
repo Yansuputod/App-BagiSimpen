@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:bagisimpen/core/theme/color.dart';
 import 'package:flutter/material.dart';
 
@@ -14,38 +13,34 @@ class SearchScreen extends StatelessWidget {
     "Dupa Pudja",
   ];
 
-  SearchScreen({super.key}); // Daftar saran pencarian
+  SearchScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: AppColors.primaryColor, // Warna AppBar sesuai tema
+        backgroundColor: AppColors.primaryColor,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.white),
           onPressed: () {
-            Navigator.pop(context); // Navigasi kembali
+            Navigator.pop(context);
           },
         ),
         title: Container(
           height: 40,
           decoration: BoxDecoration(
-            color: Colors.white, // Background field pencarian
+            color: Colors.white,
             borderRadius: BorderRadius.circular(8),
           ),
           child: TextField(
-            decoration: const  InputDecoration(
+            decoration: const InputDecoration(
               hintText: "Cari produk...",
-              hintStyle: TextStyle(color:
-               AppColors.primaryColor,
-               fontSize: 18,
-              ),
+              hintStyle: TextStyle(color: AppColors.primaryColor, fontSize: 18),
               prefixIcon: Icon(Icons.search, color: AppColors.primaryColor),
               border: InputBorder.none,
               contentPadding: EdgeInsets.symmetric(vertical: 4),
             ),
             onChanged: (query) {
-              // Logika pencarian saat input berubah
               log("Query: $query");
             },
           ),
@@ -72,7 +67,6 @@ class SearchScreen extends StatelessWidget {
                     title: Text(searchSuggestions[index]),
                     leading: Icon(Icons.search, color: Colors.grey[600]),
                     onTap: () {
-                      // Aksi ketika saran pencarian dipilih
                       log("Pilih: ${searchSuggestions[index]}");
                     },
                   );
@@ -85,4 +79,3 @@ class SearchScreen extends StatelessWidget {
     );
   }
 }
-

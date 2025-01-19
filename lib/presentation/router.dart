@@ -1,5 +1,4 @@
-// ignore_for_file: deprecated_member_use
-
+import 'package:bagisimpen/core/theme/color.dart';
 import 'package:bagisimpen/presentation/pages/cart.dart';
 import 'package:bagisimpen/presentation/pages/category.dart';
 import 'package:bagisimpen/presentation/pages/home.dart';
@@ -22,8 +21,70 @@ class RouteState extends State<Routes> {
     const Profile(),
   ];
 
-  DateTime?
-      lastPressed; // Variabel untuk melacak waktu tombol back terakhir ditekan
+  DateTime? lastPressed;
+      
+  @override
+  void initState() {
+    super.initState();
+    Future.delayed(Duration.zero, () {
+      _showAdDialog();
+    });
+  }
+
+  void _showAdDialog() {
+    showDialog(
+      context: context,
+      barrierDismissible: true,
+      builder: (BuildContext context) {
+        return Dialog(
+          backgroundColor: AppColors.backgroundColor,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: Stack(
+            children: [
+              Container(
+                width: MediaQuery.of(context).size.width * 0.8,
+                height: MediaQuery.of(context).size.width * 0.8,
+                decoration: BoxDecoration(
+                  color: AppColors.backgroundColor,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(10),
+                  child: Image.asset(
+                    'assets/images/iklan/iklan3.jpeg',
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+              Positioned(
+                top: 10,
+                right: 10,
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Container(
+                    padding: const EdgeInsets.all(5),
+                    decoration: BoxDecoration(
+                      color: Colors.black.withOpacity(0.1),
+                      borderRadius: BorderRadius.circular(25),
+                    ),
+                    child: const Icon(
+                      Icons.close,
+                      color: Colors.white,
+                      size: 20,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,9 +92,9 @@ class RouteState extends State<Routes> {
       onWillPop: () async {
         if (index != 0) {
           setState(() {
-            index = 0; // Ubah index menjadi 0
+            index = 0;
           });
-          return false; // Tahan navigasi keluar
+          return false;
         }
 
         final now = DateTime.now();
@@ -54,10 +115,10 @@ class RouteState extends State<Routes> {
             ),
           );
 
-          return false; // Jangan keluar jika tombol back hanya ditekan sekali
+          return false;
         }
 
-        return true; // Keluar jika tombol back ditekan dua kali dalam 2 detik
+        return true;
       },
       child: Scaffold(
         body: screens[index],
