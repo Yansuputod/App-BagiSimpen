@@ -1,6 +1,7 @@
 import 'package:bagisimpen/core/theme/color.dart';
-import 'package:bagisimpen/core/util/pemisah.dart';
+import 'package:bagisimpen/core/utils/pemisah.dart';
 import 'package:bagisimpen/model/jasa_kirim.dart';
+import 'package:bagisimpen/model/rating_model.dart';
 import 'package:flutter/material.dart';
 
 class ProductDetail extends StatefulWidget {
@@ -9,6 +10,7 @@ class ProductDetail extends StatefulWidget {
   final int price;
   final double rating;
   final int sold;
+  final String deskripsi;
 
   const ProductDetail({
     super.key,
@@ -17,6 +19,7 @@ class ProductDetail extends StatefulWidget {
     required this.price,
     required this.rating,
     required this.sold,
+    required this.deskripsi,
   });
 
   @override
@@ -37,6 +40,11 @@ class _ProductDetailState extends State<ProductDetail> {
             displayProduk(context),
             const SizedBox(height: 5),
             pengiriman(),
+            const SizedBox(height: 5),
+            deskripsi(),
+            const SizedBox(height: 5),
+            rating(ratings),
+            const SizedBox(height: 20),
           ],
         ),
       ),
@@ -76,49 +84,94 @@ class _ProductDetailState extends State<ProductDetail> {
     );
   }
 
-  Container navbar() {
-    return Container(
-      height: 60, // Tinggi Bottom Navigation Bar
-      color: AppColors.primaryColor,
-      child: Row(
-        children: [
-          // Tombol pertama
-          Expanded(
-            child: GestureDetector(
-              onTap: () {
-                // Logika untuk tombol pertama
-              },
-              child: Container(
-                color: Colors.transparent, // Polos tanpa warna
+Container navbar() {
+  return Container(
+    height: 60, // Tinggi Bottom Navigation Bar
+    decoration: BoxDecoration(
+      color: Colors.white, // Warna latar belakang
+      boxShadow: [
+        BoxShadow(
+          color: Colors.black.withOpacity(0.1), // Warna shadow
+          blurRadius: 4.0, // Jarak blur shadow
+          offset: const Offset(0, 2), // Posisi shadow di atas
+        ),
+      ],
+    ),
+    child: Row(
+      children: [
+        // Tombol Chat dengan background putih dan ikon warna AppColor.primary
+        Container(
+          width: MediaQuery.of(context).size.width / 4, // Set lebar tombol chat
+          color: Colors.white, // Background putih
+          child: GestureDetector(
+            onTap: () {
+              // Logika untuk tombol chat
+            },
+            child: Icon(Icons.message, color: AppColors.primaryColor), // Ikon dengan warna AppColors.primary
+          ),
+        ),
+        
+        // Divider antara tombol Chat dan Cart dengan warna gray
+        Container(
+          height: 30, // Tinggi divider
+          width: 1, // Lebar divider
+          color: Colors.grey, // Warna divider gray
+        ),
+        
+        // Tombol Cart dengan background putih dan ikon warna AppColor.primary
+        Container(
+          width: MediaQuery.of(context).size.width / 4, // Set lebar tombol cart
+          color: Colors.white, // Background putih
+          child: GestureDetector(
+            onTap: () {
+              // Logika untuk tombol cart
+            },
+            child: Icon(Icons.shopping_cart, color: AppColors.primaryColor), // Ikon dengan warna AppColors.primary
+          ),
+        ),
+        
+        // Tombol Beli Sekarang dengan background hijau
+        Container(
+          width: MediaQuery.of(context).size.width / 2 - 1, // Set lebar tombol beli lebih besar
+          color: Colors.green, // Background hijau
+          child: GestureDetector(
+            onTap: () {
+              // Logika untuk tombol beli
+            },
+            child: Container(
+              padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+              decoration: const BoxDecoration(
+                color: AppColors.primaryColor, // Background hijau
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "Rp${pemisah.separator(widget.price)}", // Harga produk
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white, // Teks putih di atas latar belakang hijau
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  const Text(
+                    'Beli Sekarang', // Teks "Beli Sekarang"
+                    style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400,
+                      color: Colors.white, // Teks putih
+                    ),
+                  ),
+                ],
               ),
             ),
           ),
-          // Tombol kedua
-          Expanded(
-            child: GestureDetector(
-              onTap: () {
-                // Logika untuk tombol kedua
-              },
-              child: Container(
-                color: Colors.white, // Polos tanpa warna
-              ),
-            ),
-          ),
-          // Tombol ketiga
-          Expanded(
-            child: GestureDetector(
-              onTap: () {
-                // Logika untuk tombol ketiga
-              },
-              child: Container(
-                color: Colors.white, // Polos tanpa warna
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
+        ),
+      ],
+    ),
+  );
+}
 
   Container displayProduk(BuildContext context) {
     return Container(
@@ -247,4 +300,164 @@ class _ProductDetailState extends State<ProductDetail> {
       ),
     );
   }
+
+  Container deskripsi() {
+  return Container(
+    color: Colors.white,
+    padding: const EdgeInsets.all(16),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Row(
+          children: [
+            Icon(Icons.info, color: AppColors.primaryColor),
+            SizedBox(width: 5),
+            Text(
+              "Deskripsi",
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 10),
+        Container(
+          alignment: Alignment.topLeft,
+          child: Text(
+            widget.deskripsi,
+            style: const TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.w400,
+            ),
+            softWrap: true, // Membungkus teks ke baris berikutnya
+            overflow: TextOverflow.visible, // Membiarkan teks tetap terlihat
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
+Container rating(List<RatingModel> ratings) {
+  return Container(
+    padding: const EdgeInsets.all(16), // Padding untuk kontainer utama
+    margin: const EdgeInsets.only(top: 10), // Margin atas untuk spasi
+    color: Colors.white, // Warna latar belakang
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Row(
+          children: [
+            Icon(Icons.comment_bank, color: AppColors.primaryColor),
+            SizedBox(width: 5),
+            Text(
+              'Ulasan Pengguna', // Judul untuk daftar rating
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 10), // Spasi antara judul dan list ulasan
+        // ListView.builder untuk menampilkan daftar rating
+        ListView.builder(
+          shrinkWrap: true, // Mengatur agar ListView menyesuaikan ukuran konten
+          physics: const NeverScrollableScrollPhysics(), // Agar scroll tidak double
+          itemCount: ratings.length,
+          itemBuilder: (context, index) {
+            final rating = ratings[index];
+            return Container(
+              padding: const EdgeInsets.all(16), // Padding untuk setiap item
+              margin: const EdgeInsets.only(bottom: 10), // Spasi antar ulasan
+              color: Colors.white, // Warna latar belakang item
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // Foto profil dan Nama Pengguna
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // Foto profil
+                      ClipOval(
+                        child: Image.network(
+                          rating.userImage, // Gambar profil dari model
+                          width: 40,
+                          height: 40,
+                          fit: BoxFit.cover,
+                          loadingBuilder: (context, child, loadingProgress) {
+                            if (loadingProgress == null) {
+                              return child;
+                            } else {
+                              return const SizedBox(
+                                width: 40,
+                                height: 40,
+                                child: Center(child: CircularProgressIndicator()),
+                              );
+                            }
+                          },
+                          errorBuilder: (context, error, stackTrace) {
+                            return const SizedBox(
+                              width: 40,
+                              height: 40,
+                              child: Icon(Icons.person, size: 40, color: Colors.grey),
+                            );
+                          },
+                        ),
+                      ),
+                      const SizedBox(width: 10), // Spasi antara foto dan teks
+                      // Nama pengguna
+                      Text(
+                        rating.userName, // Nama pengguna dari model
+                        style: const TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 8), // Spasi antara nama dan rating
+                  // Bintang rating
+                  Row(
+                    children: List.generate(5, (index) {
+                      // Bintang rating dari model
+                      return Icon(
+                        index < rating.rating
+                            ? Icons.star
+                            : Icons.star_border,
+                        size: 16,
+                        color: Colors.yellow[700],
+                      );
+                    }),
+                  ),
+                  const SizedBox(height: 8), // Spasi antara rating dan komentar
+                  // Komentar pengguna
+                  Text(
+                    rating.comment, // Komentar dari model
+                    style: const TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400,
+                    ),
+                    softWrap: true, // Membungkus teks jika panjang
+                    overflow: TextOverflow.visible, // Menampilkan teks tanpa potongan
+                  ),
+                  const SizedBox(height: 8), // Spasi antara komentar dan divider
+                  // Divider untuk pemisah antar ulasan
+                  const Divider(
+                    color: Colors.grey, // Warna divider
+                    thickness: 1, // Ketebalan divider
+                  ),
+                ],
+              ),
+            );
+          },
+        ),
+      ],
+    ),
+  );
+}
+
+
 }

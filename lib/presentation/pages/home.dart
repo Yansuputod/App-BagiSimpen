@@ -3,9 +3,9 @@ import 'package:bagisimpen/core/theme/color.dart';
 import 'package:bagisimpen/model/flashsale_model.dart';
 import 'package:bagisimpen/presentation/pages/product_detail.dart';
 import 'package:bagisimpen/presentation/pages/search.dart';
-import 'package:bagisimpen/core/util/qr_scanner.dart';
-import 'package:bagisimpen/core/util/pemisah.dart';
-import 'package:bagisimpen/core/util/timer.dart';
+import 'package:bagisimpen/core/utils/qr_scanner.dart';
+import 'package:bagisimpen/core/utils/pemisah.dart';
+import 'package:bagisimpen/core/utils/timer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:bagisimpen/model/mainsale_model.dart';
@@ -332,6 +332,7 @@ class _HomeState extends State<Home> {
                       color: Colors.red,
                     ),
                   ),
+                  SizedBox(width: 15),
                 ],
               ),
             ),
@@ -452,6 +453,7 @@ class _HomeState extends State<Home> {
                         price: sale.price,
                         rating: sale.rating ?? 0.0,
                         sold: sale.sold,
+                        deskripsi: sale.deskripsi,
                       ),
                     ),
                   );
