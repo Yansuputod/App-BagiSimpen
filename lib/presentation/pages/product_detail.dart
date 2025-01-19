@@ -107,7 +107,8 @@ Container navbar() {
             onTap: () {
               // Logika untuk tombol chat
             },
-            child: Icon(Icons.message, color: AppColors.primaryColor), // Ikon dengan warna AppColors.primary
+            child: const Icon(Icons.message, 
+            color:  AppColors.primaryColor), // Ikon dengan warna AppColors.primary
           ),
         ),
         
@@ -126,7 +127,7 @@ Container navbar() {
             onTap: () {
               // Logika untuk tombol cart
             },
-            child: Icon(Icons.shopping_cart, color: AppColors.primaryColor), // Ikon dengan warna AppColors.primary
+            child: const Icon(Icons.shopping_cart, color: AppColors.primaryColor), // Ikon dengan warna AppColors.primary
           ),
         ),
         

@@ -107,7 +107,7 @@ class _HomeState extends State<Home> {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const Search()),
+                  MaterialPageRoute(builder: (context) => SearchScreen()),
                 );
               },
               child: Container(
